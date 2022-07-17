@@ -28,12 +28,6 @@ mvn exec:java -Dexec.mainClass="CompareRecords" # execute
 
 ## Equivalence Class Partitioning and Boundary Value Analysis
 
-### Definitions
-Equivalence Class: groups of input that behave similarly in the Program \
-Boundary Values: values at bounds of valid range OR edge cases
-
-For each requirement, we find the equivalence classes, define the behavior for each class, define the boundary values, and rationale.
-
 | Requirement | Equivalence classes | Equivalence classes behavior | Middle and Boundary Values |
 | ----------- |:--------------------------------------------- |:--------------------------------------------- |:--------------------------------------------- |
 | Take two csv files | 1. Is CSV file <br>&nbsp;&nbsp;&nbsp; Is not CSV file | 1. Continues running <br>&nbsp;&nbsp;&nbsp; Throws an I/O Exception due to invalid input file | 1. (valid) middle: "sample.csv" csv file; boundary: "sample.txt" csv file, <br>&nbsp;&nbsp;&nbsp; (invalid) middle: "sample.txt" txt file; boundary: "sample.csv" txt file
@@ -43,3 +37,16 @@ For each requirement, we find the equivalence classes, define the behavior for e
 | All csv records contains valid currency | 1. Third value in row is string <br>&nbsp;&nbsp;&nbsp; Third value in row is not a string <br> 2. String value is of a valid currency ticker <br>&nbsp;&nbsp;&nbsp; String is not of valid currency ticker | 1. Continues running <br>&nbsp;&nbsp;&nbsp; Throws Value Exception due to incorrect typing of currency <br> 2. Continues running <br>&nbsp;&nbsp;&nbsp; Throws Value Exception due to invalid currency | 1. (valid) middle: "SGD"; boundary: "" <br>&nbsp;&nbsp;&nbsp; (invalid) middle: 42; boundary: 0 or [] <br> 2. (valid) middle/boundary: "USD" <br>&nbsp;&nbsp;&nbsp; (invalid) middle: "asdf"; boundary: "USDSGD" or "USDD"
 | All csv records contains valid type | 1. Fourth value in row is string <br>&nbsp;&nbsp;&nbsp; Fourth value in row is not a string <br> 2. String value is in {"CURRENT", "SAVINGS"} <br>&nbsp;&nbsp;&nbsp; String is not in {"CURRENT", "SAVINGS"} | 1. Continues running <br>&nbsp;&nbsp;&nbsp; Throws Value Exception due to incorrect typing of account type <br> 2. Continues running <br>&nbsp;&nbsp;&nbsp; Throws Value Exception due to invalid account type | 1. (valid) middle: "CURRENT"; boundary: "" <br>&nbsp;&nbsp;&nbsp; (invalid) middle: 42; boundary: 0 or [] <br> 2. (valid) middle/boundary: "CURRENT" or "SAVINGS" <br>&nbsp;&nbsp;&nbsp; (invalid) middle: "asdf", boundary: "current"
 | All csv records contains valid balance | 1. Fifth value in row is positive integer <br>&nbsp;&nbsp;&nbsp; Fifth value in row is not a positive integer | 1. Continues running <br>&nbsp;&nbsp;&nbsp; Throws Value Exception due to incorrect typing of balance | 1. (valid) middle: 42; boundary: 0 or maxint <br>&nbsp;&nbsp;&nbsp; (invalid) middle: -42; boundary: -1 or [] or ""
+
+### Definitions
+* Equivalence Class: groups of input that behave similarly in the Program \
+* Boundary Values: values at bounds of valid range OR edge cases
+
+### Explanation / Rationale
+* The design of each equivalence class is in accordance to one aspect of the requirement, each of these aspects splits the inputs into two subsets, one that fulfils the aspect, and one that does not.
+* The design of each boundary / middle value is with respect to the aspect of the requirement. The boundary values are the bounds of the input range, corresponding to the requirement.
+* We follow the above two points to systematically list the equivalent classes and boundary values.
+* Hence, for each requirement in the table above, we
+    1. Find corresponding equivalence classes 
+    2. Define the behavior for them
+    3. Define the boundary values for corresponding valid/invalid input ranges
