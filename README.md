@@ -28,6 +28,8 @@ mvn exec:java -Dexec.mainClass="CompareRecords" # execute
 
 ## Equivalence Class Partitioning and Boundary Value Analysis
 
+[For image view of this table](images/CE9_equivclass_boundaryvalues_table.png)
+
 | Requirement | Equivalence classes | Equivalence classes behavior | Middle and Boundary Values |
 | ----------- |:--------------------------------------------- |:--------------------------------------------- |:--------------------------------------------- |
 | Take two csv files | 1. Is CSV file | 1. Continues running | 1. (valid) middle: "sample.csv" csv file; boundary: "sample.txt" csv file
