@@ -11,22 +11,22 @@ public class BaseSerialiserTest {
     protected String inputString;
 
     public BaseSerialiserTest(String testString) {
-        this.inputString = testString;
+        this.inputString = testString + (Serialiser.DELIM + "a").repeat(4);
     }
 
     @Test
-    public void testSerialiseType() {
+    public void testSerialiseType() throws Serialiser.SerialiserException {
         assertTrue(Serialiser.getHash(inputString) instanceof String);
     }
 
     @Test
-    public void testDeserialiseType() {
+    public void testDeserialiseType() throws Serialiser.SerialiserException {
         String hashString = Serialiser.getHash(inputString);
         assertTrue(Serialiser.getString(hashString) instanceof String);
     }
 
     @Test
-    public void testSerialiseCharacters() {
+    public void testSerialiseCharacters() throws Serialiser.SerialiserException {
         assertEquals(Serialiser.getString(Serialiser.getHash(inputString)), inputString);
     }
 }

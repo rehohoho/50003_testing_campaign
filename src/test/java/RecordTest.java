@@ -38,7 +38,9 @@ public class RecordTest {
         }
         
         @Test
-        public void testRecordConstructor() throws FileNotFoundException, IOException {
+        public void testRecordConstructor() 
+            throws FileNotFoundException, IOException, Serialiser.SerialiserException
+        {
             Record record = new Record(recordPath);
             assertEquals(record.getEntries().size(), 1001);
             assertTrue(record.getEntries().getClass() == HashSet.class);

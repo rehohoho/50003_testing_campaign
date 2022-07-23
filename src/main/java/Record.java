@@ -14,11 +14,15 @@ public class Record {
 
     private HashSet<String> entries = new HashSet<String>();
 
-    Record(String path) throws FileNotFoundException, IOException {
+    Record(String path) 
+        throws FileNotFoundException, IOException, Serialiser.SerialiserException 
+    {
         readRecords(path);
     }
 
-    private void readRecords(String path) throws FileNotFoundException, IOException {
+    private void readRecords(String path) 
+        throws FileNotFoundException, IOException, Serialiser.SerialiserException
+    {
         BufferedReader br = new BufferedReader(new FileReader(path));
         
         String formatting = Files.probeContentType(Paths.get(path));
