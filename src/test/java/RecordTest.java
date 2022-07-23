@@ -1,15 +1,15 @@
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -41,6 +41,7 @@ public class RecordTest {
         public void testRecordConstructor() throws FileNotFoundException, IOException {
             Record record = new Record(recordPath);
             assertEquals(record.getEntries().size(), 1001);
+            assertTrue(record.getEntries().getClass() == HashSet.class);
             System.out.println(Files.probeContentType(Paths.get(recordPath)));
         }
     }
@@ -64,6 +65,31 @@ public class RecordTest {
         @Test
         public void testRecordConstructor() {
             assertThrows(FileNotFoundException.class, () -> {
+                new Record(recordPath);
+            });
+        }
+    }
+
+    @RunWith(Parameterized.class)
+    public static class NoncsvFileTest {
+        private String recordPath;
+
+        public NoncsvFileTest(String recordPath) {
+            this.recordPath = recordPath;
+        }
+
+        @Parameterized.Parameters
+        public static Collection<Object[]> generateInput() {
+            return Arrays.asList(new Object[][] {
+                {"./assets/testNoncsv.txt"}, 
+                {"./assets/testNoncsv"}, 
+                {"./assets/testNoncsv.csv"}, 
+            });
+        }
+        
+        @Test
+        public void testRecordConstructor() throws FileNotFoundException, IOException {
+            assertThrows(IOException.class, () -> {
                 new Record(recordPath);
             });
         }
