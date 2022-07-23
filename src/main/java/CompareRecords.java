@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
@@ -6,7 +7,7 @@ import java.util.Iterator;
 
 public class CompareRecords {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         Record record1 = new Record(args[0]);
         Record record2 = new Record(args[1]);
         

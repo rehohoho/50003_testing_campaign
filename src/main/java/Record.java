@@ -12,22 +12,18 @@ public class Record {
 
     private HashSet<String> entries = new HashSet<String>();
 
-    Record(String path) {
+    Record(String path) throws FileNotFoundException, IOException {
         readRecords(path);
     }
 
-    private void readRecords(String path) {
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                line = line.replace("\"", "");
-                entries.add(Serialiser.getHash(line));
-            }
-        } catch (FileNotFoundException e) {
-            System.out.print(e);
-        } catch (IOException e) {
-            System.out.print(e);
+    private void readRecords(String path) throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        String line;
+        while ((line = br.readLine()) != null) {
+            line = line.replace("\"", "");
+            entries.add(Serialiser.getHash(line));
         }
+        br.close();
     }
 
     public HashSet<String> getEntries() {
