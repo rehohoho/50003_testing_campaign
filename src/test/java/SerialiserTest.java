@@ -17,9 +17,9 @@ public class SerialiserTest {
         }
         
         @Parameterized.Parameters
-        public static Collection generateInput() {
+        public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"asdf"}
+                {"asdf"}, {"ASDF"}, {"asDF"}, {"a"}, {"B"}
             });
         }
     }
@@ -32,9 +32,9 @@ public class SerialiserTest {
         }
         
         @Parameterized.Parameters
-        public static Collection generateInput() {
+        public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"1234"}
+                {"1234"}, {"0"}, {"0123456789"}, {"9876543210"}, {"0a"}, {"a0"}
             });
         }
     }
@@ -47,9 +47,10 @@ public class SerialiserTest {
         }
         
         @Parameterized.Parameters
-        public static Collection generateInput() {
+        public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"!@#$%^&*()"}
+                {"!@#$%^&*()"}, {"\""}, {"\'"}, {"*"}, {"0!"}, {"!0"},
+                {"a@"}, {"@a"}, {"#b9"}, {"b8$"}, {"7d$"}
             });
         }
     }
@@ -62,9 +63,9 @@ public class SerialiserTest {
         }
         
         @Parameterized.Parameters
-        public static Collection generateInput() {
+        public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {""}
+                {""}, {"[]"}
             });
         }
     }
