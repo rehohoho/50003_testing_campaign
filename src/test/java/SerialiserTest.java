@@ -19,7 +19,8 @@ public class SerialiserTest {
         @Parameterized.Parameters
         public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"asdf"}, {"ASDF"}, {"asDF"}, {"a"}, {"B"}
+                {"asdf"}, {"ASDF"}, {"asDF"}, {"a"}, {"B"},
+                {"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"}
             });
         }
     }
