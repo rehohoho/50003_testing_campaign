@@ -11,14 +11,20 @@ The following compares two csv files and returns records that do not match.
 First command is to compile, second is to run. \
 Syntax: `java -cp build/ CompareRecords [csv-path-1] [csv-path-2] [output-path]`
 ```
-javac -d build src/main/java/*.java
+javac -cp "./target/dependency/*" -d build src/main/java/*.java src/test/java/*.java
 java -cp build/ CompareRecords ./assets/sample_file_1.csv ./assets/sample_file_3.csv res.csv
+java -cp "target/dependency/*;build/" TestRunner
 ```
 
 ### Maven
 ```
 mvn compile # compile
 mvn exec:java -Dexec.mainClass="CompareRecords" # execute
+```
+
+To generate dependencies
+```
+mvn dependency:copy-dependencies
 ```
 
 ## Use Case Diagram
