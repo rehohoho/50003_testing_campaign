@@ -12,10 +12,9 @@ public class Serialiser {
         "XPD", "XPT", "XRP", "XTI"
     ).collect(Collectors.toCollection(HashSet::new));
 
-
-    public enum AccountType {
-        SAVINGS, CURRENT
-    }
+    static final HashSet<String> accountTypes = Stream.of(
+        "SAVINGS", "CURRENT"
+    ).collect(Collectors.toCollection(HashSet::new));
 
     public static class SerialiserException extends Exception {
         public SerialiserException(String errorMessage) { super(errorMessage); }
@@ -52,6 +51,12 @@ public class Serialiser {
             throw new ValueException("Unknown currency: " + currency);
         }
     }
+
+    private static void checkAccountType(String accountType) throws ValueException {
+        if (!accountTypes.contains(accountType)) {
+            throw new ValueException("Unknown account type: " + accountType);
+        }
+    }
     
     /**
      * 
@@ -65,6 +70,7 @@ public class Serialiser {
         checkCustomerId(data[0]);
         checkAccountNo(data[1]);
         checkCurrency(data[2]);
+        checkAccountType(data[3]);
         return line;
     }
 

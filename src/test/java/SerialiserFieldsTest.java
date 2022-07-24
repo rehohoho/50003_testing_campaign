@@ -51,7 +51,7 @@ public class SerialiserFieldsTest {
         }
 
         @Test
-        public void testWrongFieldCount() throws Serialiser.SerialiserException {
+        public void testInvalidId() throws Serialiser.SerialiserException {
             assertThrows(Serialiser.ValueException.class, () -> {
                 Serialiser.getHash(inputString);
             });
@@ -74,7 +74,7 @@ public class SerialiserFieldsTest {
         }
 
         @Test
-        public void testWrongFieldCount() throws Serialiser.SerialiserException {
+        public void testInvalidAccountNo() throws Serialiser.SerialiserException {
             assertThrows(Serialiser.ValueException.class, () -> {
                 Serialiser.getHash(inputString);
             });
@@ -97,7 +97,31 @@ public class SerialiserFieldsTest {
         }
 
         @Test
-        public void testWrongFieldCount() throws Serialiser.SerialiserException {
+        public void testInvalidCurrency() throws Serialiser.SerialiserException {
+            assertThrows(Serialiser.ValueException.class, () -> {
+                Serialiser.getHash(inputString);
+            });
+        }
+    }
+
+    @RunWith(Parameterized.class)
+    public static class SerialiserInvalidAccountTypeTest {
+        protected String inputString;
+
+        public SerialiserInvalidAccountTypeTest(String testString) {
+            this.inputString = "ID,BOS,USD," + testString + ",0";
+        }
+
+        @Parameterized.Parameters
+        public static Collection<Object[]> generateInput() {
+            return Arrays.asList(new Object[][] {
+                {"asdf"}, {"savings"}, {"current"}, {"SAVINGS "}, {" SAVINGS"}, 
+                {"0"}, {" "}
+            });
+        }
+
+        @Test
+        public void testInvalidAccountType() throws Serialiser.SerialiserException {
             assertThrows(Serialiser.ValueException.class, () -> {
                 Serialiser.getHash(inputString);
             });
