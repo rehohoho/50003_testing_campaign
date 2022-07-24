@@ -35,25 +35,28 @@ public class SerialiserFieldsTest {
         }
     }
 
-    @RunWith(Parameterized.class)
-    public static class SerialiserInvalidIdTest {
-        protected String inputString;
+    public static class SerialiserInvalidIdTest extends BaseSerialiserFieldsTest {
 
-        public SerialiserInvalidIdTest(String testString) {
+        public SerialiserInvalidIdTest(Type type, String testString) {
+            super(type, testString);
             this.inputString = testString + ",BOS,USD,CURRENT,0";
         }
 
         @Parameterized.Parameters
         public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"a"}, {"Id"}, {"iD"}, {"id"}, {"0"}, {" "}
-            });
-        }
-
-        @Test
-        public void testInvalidId() throws Serialiser.SerialiserException {
-            assertThrows(Serialiser.ValueException.class, () -> {
-                Serialiser.getHash(inputString);
+                {Type.INVALID, "a"},
+                {Type.INVALID, "Id"},
+                {Type.INVALID, "iD"},
+                {Type.INVALID, "id"},
+                {Type.INVALID, "0"},
+                {Type.INVALID, " "},
+                
+                {Type.VALID, "ID"},
+                {Type.VALID, "ID0987654321"},
+                {Type.VALID, "ID0"},
+                {Type.VALID, "IDabc"},
+                {Type.VALID, "IDIDID"},
             });
         }
     }
