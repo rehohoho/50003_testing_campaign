@@ -1,10 +1,17 @@
+import java.util.HashSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class Serialiser {
 
     static final String DELIM = ",";
 
-    public enum AccountCurrency {
-        
-    }
+    static final HashSet<String> accountCurrency = Stream.of(
+        "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "INR", "JPY", "MXN", "NOK", "NZD", 
+        "SEK", "SGD", "TRY", "USD", "XAG", "XAU", "XBN", "XBT", "XET", "XLC", "XNG", 
+        "XPD", "XPT", "XRP", "XTI"
+    ).collect(Collectors.toCollection(HashSet::new));
+
 
     public enum AccountType {
         SAVINGS, CURRENT
@@ -39,6 +46,12 @@ public class Serialiser {
             throw new ValueException("Invalid format of account no: " + customerId);
         }
     }
+
+    private static void checkCurrency(String currency) throws ValueException {
+        if (!accountCurrency.contains(currency)) {
+            throw new ValueException("Unknown currency: " + currency);
+        }
+    }
     
     /**
      * 
@@ -51,6 +64,7 @@ public class Serialiser {
         }
         checkCustomerId(data[0]);
         checkAccountNo(data[1]);
+        checkCurrency(data[2]);
         return line;
     }
 

@@ -63,13 +63,36 @@ public class SerialiserFieldsTest {
         protected String inputString;
 
         public SerialiserInvalidAccountNoTest(String testString) {
-            this.inputString = "ID" + testString + ",USD,CURRENT,0";
+            this.inputString = "ID," + testString + ",USD,CURRENT,0";
         }
 
         @Parameterized.Parameters
         public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
                 {"bos"}, {"Bos"}, {"BOs"}, {"asdf"}, {"123"}, {" "}, {""}
+            });
+        }
+
+        @Test
+        public void testWrongFieldCount() throws Serialiser.SerialiserException {
+            assertThrows(Serialiser.ValueException.class, () -> {
+                Serialiser.getHash(inputString);
+            });
+        }
+    }
+
+    @RunWith(Parameterized.class)
+    public static class SerialiserInvalidCurrencyTest {
+        protected String inputString;
+
+        public SerialiserInvalidCurrencyTest(String testString) {
+            this.inputString = "ID,BOS," + testString + ",CURRENT,0";
+        }
+
+        @Parameterized.Parameters
+        public static Collection<Object[]> generateInput() {
+            return Arrays.asList(new Object[][] {
+                {"asdf"}, {"USDSGD"}, {"USDD"}, {"usd"}, {"sgd"}, {"0"}, {" "}
             });
         }
 
