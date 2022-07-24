@@ -112,26 +112,25 @@ public class SerialiserFieldsTest {
         }
     }
 
-    @RunWith(Parameterized.class)
-    public static class SerialiserInvalidAccountTypeTest {
-        protected String inputString;
+    public static class SerialiserInvalidAccountTypeTest extends BaseSerialiserFieldsTest {
 
-        public SerialiserInvalidAccountTypeTest(String testString) {
-            this.inputString = "ID,BOS,USD," + testString + ",0";
+        public SerialiserInvalidAccountTypeTest(Type type, String testString) {
+            super(type, "ID,BOS,USD," + testString + ",0");
         }
 
         @Parameterized.Parameters
         public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"asdf"}, {"savings"}, {"current"}, {"SAVINGS "}, {" SAVINGS"}, 
-                {"0"}, {" "}
-            });
-        }
+                {Type.INVALID, "asdf"},
+                {Type.INVALID, "savings"},
+                {Type.INVALID, "current"},
+                {Type.INVALID, "SAVINGS "},
+                {Type.INVALID, " SAVINGS"},
+                {Type.INVALID, "0"},
+                {Type.INVALID, " "},
 
-        @Test
-        public void testInvalidAccountType() throws Serialiser.SerialiserException {
-            assertThrows(Serialiser.ValueException.class, () -> {
-                Serialiser.getHash(inputString);
+                {Type.VALID, "CURRENT"},
+                {Type.VALID, "SAVINGS"},
             });
         }
     }
