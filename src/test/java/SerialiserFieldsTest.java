@@ -35,11 +35,10 @@ public class SerialiserFieldsTest {
         }
     }
 
-    public static class SerialiserInvalidIdTest extends BaseSerialiserFieldsTest {
+    public static class SerialiserIdFieldTest extends BaseSerialiserFieldsTest {
 
-        public SerialiserInvalidIdTest(Type type, String testString) {
-            super(type, testString);
-            this.inputString = testString + ",BOS,USD,CURRENT,0";
+        public SerialiserIdFieldTest(Type type, String testString) {
+            super(type, testString + ",BOS,USD,CURRENT,0");
         }
 
         @Parameterized.Parameters
@@ -61,25 +60,29 @@ public class SerialiserFieldsTest {
         }
     }
 
-    @RunWith(Parameterized.class)
-    public static class SerialiserInvalidAccountNoTest {
-        protected String inputString;
+    public static class SerialiserAccountNoFieldTest extends BaseSerialiserFieldsTest {
 
-        public SerialiserInvalidAccountNoTest(String testString) {
-            this.inputString = "ID," + testString + ",USD,CURRENT,0";
+        public SerialiserAccountNoFieldTest(Type type, String testString) {
+            super(type, "ID," + testString + ",USD,CURRENT,0");
         }
 
         @Parameterized.Parameters
         public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"bos"}, {"Bos"}, {"BOs"}, {"asdf"}, {"123"}, {" "}, {""}
-            });
-        }
-
-        @Test
-        public void testInvalidAccountNo() throws Serialiser.SerialiserException {
-            assertThrows(Serialiser.ValueException.class, () -> {
-                Serialiser.getHash(inputString);
+                {Type.INVALID, "bos"},
+                {Type.INVALID, "Bos"},
+                {Type.INVALID, "BOs"},
+                {Type.INVALID, "boS"},
+                {Type.INVALID, "asdf"},
+                {Type.INVALID, "123"},
+                {Type.INVALID, " "},
+                {Type.INVALID, ""},
+                
+                {Type.VALID, "BOS"},
+                {Type.VALID, "BOS0"},
+                {Type.VALID, "BOS1234567890"},
+                {Type.VALID, "BOSasdf"},
+                {Type.VALID, "BOSBOSBOS"},
             });
         }
     }
