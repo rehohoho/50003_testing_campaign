@@ -9,7 +9,7 @@ The following compares two csv files and returns records that do not match.
 
 ### Java only
 First command is to compile, second is to run, third is to run tests. \
-Syntax: `java -cp build/ CompareRecords [csv-path-1] [csv-path-2] [output-path]`
+Run syntax: `java -cp build/ CompareRecords [csv-path-1] [csv-path-2] [output-path]`
 ```
 javac -cp "./target/dependency/*" -d build src/main/java/*.java src/test/java/*.java
 java -cp build/ CompareRecords ./assets/sample_file_1.csv ./assets/sample_file_3.csv res.csv
@@ -17,9 +17,11 @@ java -cp "target/dependency/*;build/" TestRunner
 ```
 
 ### Maven
+First command is to compile, second is to run, third is to run tests.
 ```
-mvn compile # compile
-mvn exec:java -Dexec.mainClass="CompareRecords" # execute
+mvn compile
+mvn exec:java -Dexec.mainClass="CompareRecords" -Dexec.args="./assets/sample_file_1.csv ./assets/sample_file_3.csv res.csv"
+mvn test -Dtest=RecordTest,SerialiserTest,SerialiserFieldsTest
 ```
 
 To generate dependencies
@@ -73,3 +75,26 @@ mvn dependency:copy-dependencies
     1. Find corresponding equivalence classes 
     2. Define the behavior for them
     3. Define the boundary values for corresponding valid/invalid input ranges
+
+## Testing Coverage
+Record Test: `src/test/java/RecordTest.java`
+1. Valid path
+2. Invalid path
+3. Non-csv files: inclusive of extension and no extensions
+
+Serialiser Test: `src/test/java/SerialiserTest.java`
+Serialising and deserialising for
+1. Strings
+2. Numerics
+3. Symbols
+4. Empty values
+
+Serialiser Fields Test: `src/test/java/SerialiserFieldsTest.java`
+1. Field Count
+2. Id validity
+3. Account Number validty
+4. Currency validity
+5. Account type vality
+6. Balance validity
+
+For details of each point, see [section on equivalence class partitioning and boundary value analysis](#equivalence-class-partitioning-and-boundary-value-analysis)
