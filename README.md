@@ -8,7 +8,7 @@ Student ID: 1005000
 The following compares two csv files and returns records that do not match.
 
 ### Java only
-First command is to compile, second is to run. \
+First command is to compile, second is to run, third is to run tests. \
 Syntax: `java -cp build/ CompareRecords [csv-path-1] [csv-path-2] [output-path]`
 ```
 javac -cp "./target/dependency/*" -d build src/main/java/*.java src/test/java/*.java
