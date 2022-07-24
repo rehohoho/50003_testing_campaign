@@ -17,6 +17,19 @@ public class Serialiser {
     public static class FieldCountException extends SerialiserException {
         public FieldCountException(String errorMessage) { super(errorMessage); }
     }
+
+    public static class ValueException extends SerialiserException {
+        public ValueException(String errorMessage) { super(errorMessage); }
+    }
+
+    private static void checkCustomerId(String customerId) throws ValueException {
+        if (customerId.length() < 2) {
+            throw new ValueException("Length of customer id too short: " + customerId);
+        }
+        if (!customerId.substring(0, 2).equals("ID")) {
+            throw new ValueException("Invalid format of customer id: " + customerId);
+        }
+    }
     
     /**
      * 
@@ -25,9 +38,9 @@ public class Serialiser {
     public static String getHash(String line) throws SerialiserException {
         String[] data = line.split(DELIM);
         if (data.length != 5) {
-            throw new FieldCountException(
-                "Got " + data.length + " fields, expected 5");
+            throw new FieldCountException("Got " + data.length + " fields, expected 5");
         }
+        checkCustomerId(data[0]);
         return line;
     }
 

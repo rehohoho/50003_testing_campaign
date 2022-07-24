@@ -35,4 +35,27 @@ public class SerialiserFieldsTest {
         }
     }
 
+    @RunWith(Parameterized.class)
+    public static class SerialiserInvalidIdTest {
+        protected String inputString;
+
+        public SerialiserInvalidIdTest(String testString) {
+            this.inputString = testString;
+        }
+
+        @Parameterized.Parameters
+        public static Collection<Object[]> generateInput() {
+            return Arrays.asList(new Object[][] {
+                {"a,b,c,d,e"}, {"Id,1,2,3,4"}, {"iD,1,2,3,4"}, {"id,1,2,3,4"}
+            });
+        }
+
+        @Test
+        public void testWrongFieldCount() throws Serialiser.SerialiserException {
+            assertThrows(Serialiser.ValueException.class, () -> {
+                Serialiser.getHash(inputString);
+            });
+        }
+    }
+
 }
