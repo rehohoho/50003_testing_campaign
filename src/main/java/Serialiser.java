@@ -30,6 +30,15 @@ public class Serialiser {
             throw new ValueException("Invalid format of customer id: " + customerId);
         }
     }
+
+    private static void checkAccountNo(String customerId) throws ValueException {
+        if (customerId.length() < 3) {
+            throw new ValueException("Length of account no too short: " + customerId);
+        }
+        if (!customerId.substring(0, 3).equals("BOS")) {
+            throw new ValueException("Invalid format of account no: " + customerId);
+        }
+    }
     
     /**
      * 
@@ -41,6 +50,7 @@ public class Serialiser {
             throw new FieldCountException("Got " + data.length + " fields, expected 5");
         }
         checkCustomerId(data[0]);
+        checkAccountNo(data[1]);
         return line;
     }
 

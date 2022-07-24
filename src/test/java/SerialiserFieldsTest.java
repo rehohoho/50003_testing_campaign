@@ -40,13 +40,36 @@ public class SerialiserFieldsTest {
         protected String inputString;
 
         public SerialiserInvalidIdTest(String testString) {
-            this.inputString = testString;
+            this.inputString = testString + ",BOS,USD,CURRENT,0";
         }
 
         @Parameterized.Parameters
         public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"a,b,c,d,e"}, {"Id,1,2,3,4"}, {"iD,1,2,3,4"}, {"id,1,2,3,4"}
+                {"a"}, {"Id"}, {"iD"}, {"id"}, {"0"}, {" "}
+            });
+        }
+
+        @Test
+        public void testWrongFieldCount() throws Serialiser.SerialiserException {
+            assertThrows(Serialiser.ValueException.class, () -> {
+                Serialiser.getHash(inputString);
+            });
+        }
+    }
+
+    @RunWith(Parameterized.class)
+    public static class SerialiserInvalidAccountNoTest {
+        protected String inputString;
+
+        public SerialiserInvalidAccountNoTest(String testString) {
+            this.inputString = "ID" + testString + ",USD,CURRENT,0";
+        }
+
+        @Parameterized.Parameters
+        public static Collection<Object[]> generateInput() {
+            return Arrays.asList(new Object[][] {
+                {"bos"}, {"Bos"}, {"BOs"}, {"asdf"}, {"123"}, {" "}, {""}
             });
         }
 

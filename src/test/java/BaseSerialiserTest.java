@@ -11,7 +11,7 @@ public class BaseSerialiserTest {
     protected String inputString;
 
     public BaseSerialiserTest(String testString) {
-        this.inputString = "ID"+testString + (Serialiser.DELIM + "a").repeat(4);
+        this.inputString = "ID" + testString + ",BOS,USD,CURRENT,0";
     }
 
     @Test
