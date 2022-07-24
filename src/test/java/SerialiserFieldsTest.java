@@ -87,25 +87,27 @@ public class SerialiserFieldsTest {
         }
     }
 
-    @RunWith(Parameterized.class)
-    public static class SerialiserInvalidCurrencyTest {
-        protected String inputString;
+    public static class SerialiserCurrencyFieldTest extends BaseSerialiserFieldsTest {
 
-        public SerialiserInvalidCurrencyTest(String testString) {
-            this.inputString = "ID,BOS," + testString + ",CURRENT,0";
+        public SerialiserCurrencyFieldTest(Type type, String testString) {
+            super(type, "ID,BOS," + testString + ",CURRENT,0");
         }
 
         @Parameterized.Parameters
         public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"asdf"}, {"USDSGD"}, {"USDD"}, {"usd"}, {"sgd"}, {"0"}, {" "}
-            });
-        }
+                {Type.INVALID, "asdf"},
+                {Type.INVALID, "USDSGD"},
+                {Type.INVALID, "USDD"},
+                {Type.INVALID, "usd"},
+                {Type.INVALID, "sgd"},
+                {Type.INVALID, "0"},
+                {Type.INVALID, " "},
 
-        @Test
-        public void testInvalidCurrency() throws Serialiser.SerialiserException {
-            assertThrows(Serialiser.ValueException.class, () -> {
-                Serialiser.getHash(inputString);
+                {Type.VALID, "USD"},
+                {Type.VALID, "TRY"},
+                {Type.VALID, "EUR"},
+                {Type.VALID, "CAD"},
             });
         }
     }
