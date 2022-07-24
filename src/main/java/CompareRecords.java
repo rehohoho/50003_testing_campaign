@@ -19,6 +19,7 @@ public class CompareRecords {
         res.addAll(record2.getEntries());
         
         writeResult(res, args[2]);
+        System.out.println("Result csv outputted at " + args[2]);
     }
 
     public static void writeResult(HashSet<String> res, String path) {

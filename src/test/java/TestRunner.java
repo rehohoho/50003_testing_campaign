@@ -6,14 +6,19 @@ public class TestRunner {
 
     public static void main(String[] args) {
         Result result = JUnitCore.runClasses(
-            SerialiserTest.class
+            SerialiserTest.class,
+            SerialiserFieldsTest.class,
+            RecordTest.class
         );
 
         for (Failure failure: result.getFailures()) {
             System.out.println(failure.toString());
         }
 
-        System.out.println(result.wasSuccessful());
+        System.out.println("Finished running tests in " + result.getRunTime() + "ms \n" + 
+            result.getRunCount() + " ran \n" +
+            result.getIgnoreCount() + " ignored \n" +
+            result.getFailureCount() + " failed");
     }
     
 }

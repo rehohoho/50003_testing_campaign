@@ -32,9 +32,15 @@ public class Record {
         }
 
         String line;
+        int lineCount = 0;
         while ((line = br.readLine()) != null) {
             line = line.replace("\"", "");
-            entries.add(Serialiser.getHash(line));
+            try {
+                entries.add(Serialiser.getHash(line));
+            } catch (Exception e) {
+                System.out.println(e + ": for line " + lineCount + ". Skipping. Line contents:\n\t" + line);
+            }
+            lineCount += 1;
         }
         br.close();
     }
