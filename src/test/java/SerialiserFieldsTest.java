@@ -128,4 +128,27 @@ public class SerialiserFieldsTest {
         }
     }
 
+    @RunWith(Parameterized.class)
+    public static class SerialiserInvalidBalanceTest {
+        protected String inputString;
+
+        public SerialiserInvalidBalanceTest(String testString) {
+            this.inputString = "ID,BOS,USD,SAVINGS," + testString;
+        }
+
+        @Parameterized.Parameters
+        public static Collection<Object[]> generateInput() {
+            return Arrays.asList(new Object[][] {
+                {"asdf"}, {"1234567890a"}, {"-1"}, {" "}
+            });
+        }
+
+        @Test
+        public void testInvalidAccountType() throws Serialiser.SerialiserException {
+            assertThrows(Serialiser.ValueException.class, () -> {
+                Serialiser.getHash(inputString);
+            });
+        }
+    }
+
 }

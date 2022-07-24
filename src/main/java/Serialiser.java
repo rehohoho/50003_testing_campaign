@@ -57,6 +57,13 @@ public class Serialiser {
             throw new ValueException("Unknown account type: " + accountType);
         }
     }
+
+    private static void checkBalance(String balance) throws ValueException {
+        //match a number with optional '-' and decimal.
+        if (!balance.matches("\\d+(\\.\\d+)?")) {
+            throw new ValueException("Unknown balance: " + balance);
+        }
+    }
     
     /**
      * 
@@ -71,6 +78,7 @@ public class Serialiser {
         checkAccountNo(data[1]);
         checkCurrency(data[2]);
         checkAccountType(data[3]);
+        checkBalance(data[4]);
         return line;
     }
 
