@@ -50,6 +50,7 @@ public class SerialiserFieldsTest {
                 {Type.INVALID, "id"},
                 {Type.INVALID, "0"},
                 {Type.INVALID, " "},
+                // empty field is catched by FieldCountException
                 
                 {Type.VALID, "ID"},
                 {Type.VALID, "ID0987654321"},
@@ -76,7 +77,7 @@ public class SerialiserFieldsTest {
                 {Type.INVALID, "asdf"},
                 {Type.INVALID, "123"},
                 {Type.INVALID, " "},
-                {Type.INVALID, ""},
+                // empty field is catched by FieldCountException
                 
                 {Type.VALID, "BOS"},
                 {Type.VALID, "BOS0"},
@@ -103,6 +104,7 @@ public class SerialiserFieldsTest {
                 {Type.INVALID, "sgd"},
                 {Type.INVALID, "0"},
                 {Type.INVALID, " "},
+                // empty field is catched by FieldCountException
 
                 {Type.VALID, "USD"},
                 {Type.VALID, "TRY"},
@@ -112,9 +114,9 @@ public class SerialiserFieldsTest {
         }
     }
 
-    public static class SerialiserInvalidAccountTypeTest extends BaseSerialiserFieldsTest {
+    public static class SerialiserAccountTypeFieldTest extends BaseSerialiserFieldsTest {
 
-        public SerialiserInvalidAccountTypeTest(Type type, String testString) {
+        public SerialiserAccountTypeFieldTest(Type type, String testString) {
             super(type, "ID,BOS,USD," + testString + ",0");
         }
 
@@ -128,6 +130,7 @@ public class SerialiserFieldsTest {
                 {Type.INVALID, " SAVINGS"},
                 {Type.INVALID, "0"},
                 {Type.INVALID, " "},
+                // empty field is catched by FieldCountException
 
                 {Type.VALID, "CURRENT"},
                 {Type.VALID, "SAVINGS"},
@@ -135,25 +138,28 @@ public class SerialiserFieldsTest {
         }
     }
 
-    @RunWith(Parameterized.class)
-    public static class SerialiserInvalidBalanceTest {
-        protected String inputString;
+    public static class SerialiserBalanceFieldTest extends BaseSerialiserFieldsTest {
 
-        public SerialiserInvalidBalanceTest(String testString) {
-            this.inputString = "ID,BOS,USD,SAVINGS," + testString;
+        public SerialiserBalanceFieldTest(Type type, String testString) {
+            super(type, "ID,BOS,USD,SAVINGS," + testString);
         }
 
         @Parameterized.Parameters
         public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
-                {"asdf"}, {"1234567890a"}, {"-1"}, {" "}
-            });
-        }
-
-        @Test
-        public void testInvalidAccountType() throws Serialiser.SerialiserException {
-            assertThrows(Serialiser.ValueException.class, () -> {
-                Serialiser.getHash(inputString);
+                {Type.INVALID, "asdf"},
+                {Type.INVALID, "1234567890a"},
+                {Type.INVALID, "-1"},
+                {Type.INVALID, "-123456789"},
+                {Type.INVALID, "-a123456789"},
+                {Type.INVALID, " "},
+                // empty field is catched by FieldCountException
+                
+                {Type.VALID, "0"},
+                {Type.VALID, "0.1"},
+                {Type.VALID, "0.001"},
+                {Type.VALID, "1234567890"},
+                {Type.VALID, "98765.43210"},
             });
         }
     }
