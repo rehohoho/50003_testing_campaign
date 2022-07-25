@@ -1,0 +1,41 @@
+Serialiser$FieldCountException: Got 1 fields, expected 5: for line 1. Skipping. Line contents:
+	a
+Serialiser$FieldCountException: Got 4 fields, expected 5: for line 2. Skipping. Line contents:
+	a,b,c,d
+Serialiser$FieldCountException: Got 6 fields, expected 5: for line 3. Skipping. Line contents:
+	a,b,c,d,e,f
+Serialiser$ValueException: Invalid format of customer id: iD: for line 4. Skipping. Line contents:
+	iD,BOS,SGD,CURRENT,0
+Serialiser$ValueException: Invalid format of customer id: asdf: for line 5. Skipping. Line contents:
+	asdf,BOS,SGD,CURRENT,0
+Serialiser$ValueException: Invalid format of customer id: 42: for line 6. Skipping. Line contents:
+	42,BOS,SGD,CURRENT,0
+Serialiser$ValueException: Length of customer id too short:  : for line 7. Skipping. Line contents:
+	 ,BOS,SGD,CURRENT,0
+Serialiser$ValueException: Invalid format of account no: asdf: for line 8. Skipping. Line contents:
+	ID,asdf,SGD,CURRENT,0
+Serialiser$ValueException: Invalid format of account no: BOs: for line 9. Skipping. Line contents:
+	ID,BOs,SGD,CURRENT,0
+Serialiser$ValueException: Length of account no too short: 42: for line 10. Skipping. Line contents:
+	ID,42,SGD,CURRENT,0
+Serialiser$ValueException: Length of account no too short:  : for line 11. Skipping. Line contents:
+	ID, ,SGD,CURRENT,0
+Serialiser$ValueException: Unknown currency: asdf: for line 12. Skipping. Line contents:
+	ID,BOS,asdf,CURRENT,0
+Serialiser$ValueException: Unknown currency: sGD: for line 13. Skipping. Line contents:
+	ID,BOS,sGD,CURRENT,0
+Serialiser$ValueException: Unknown currency: 42: for line 14. Skipping. Line contents:
+	ID,BOS,42,CURRENT,0
+Serialiser$ValueException: Unknown currency:  : for line 15. Skipping. Line contents:
+	ID,BOS, ,CURRENT,0
+Serialiser$ValueException: Unknown account type: asdf: for line 16. Skipping. Line contents:
+	ID,BOS,SGD,asdf,0
+Serialiser$ValueException: Unknown account type: cURRENT: for line 17. Skipping. Line contents:
+	ID,BOS,SGD,cURRENT,0
+Serialiser$ValueException: Unknown account type: cURRENT: for line 18. Skipping. Line contents:
+	ID,BOS,SGD,cURRENT,-42
+Serialiser$ValueException: Unknown account type: cURRENT: for line 19. Skipping. Line contents:
+	ID,BOS,SGD,cURRENT,-1
+Serialiser$ValueException: Unknown balance:  : for line 21. Skipping. Line contents:
+	ID,BOS,SGD,CURRENT, 
+Result csv outputted at ./assets/systemsTest1.csv

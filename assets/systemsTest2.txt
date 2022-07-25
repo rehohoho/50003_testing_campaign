@@ -1,0 +1,5 @@
+Serialiser$ValueException: Invalid format of customer id: Customer ID#: for line 0. Skipping. Line contents:
+	Customer ID#,Account No.,Currency,Type,Balance
+Serialiser$ValueException: Invalid format of customer id: Customer ID#: for line 0. Skipping. Line contents:
+	Customer ID#,Account No.,Currency,Type,Balance
+Result csv outputted at ./assets/systemsTest2.csv
