@@ -31,6 +31,8 @@ public class CompareRecordsTest {
             while ((line1 = bf1.readLine()) != null)
             {
                 line2 = bf2.readLine();
+                line1 = line1.replace("\r\n", "\n").replace('\r', '\n');
+                line2 = line2.replace("\r\n", "\n").replace('\r', '\n');
                 assertTrue(line1.equals(line2) || !line1.contains(path1));
             }
         }
