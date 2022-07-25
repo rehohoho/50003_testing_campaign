@@ -15,10 +15,24 @@ public class TestRunner {
             System.out.println(failure.toString());
         }
 
-        System.out.println("Finished running tests in " + result.getRunTime() + "ms \n" + 
+        System.out.println("Finished running unit tests in " + result.getRunTime() + "ms \n" + 
             result.getRunCount() + " ran \n" +
             result.getIgnoreCount() + " ignored \n" +
             result.getFailureCount() + " failed");
+        
+        result = JUnitCore.runClasses(
+            CompareRecordsTest.class
+        );
+        
+        for (Failure failure: result.getFailures()) {
+            System.out.println(failure.toString());
+        }
+        
+        System.out.println("Finished running system tests in " + result.getRunTime() + "ms \n" + 
+            result.getRunCount() + " ran \n" +
+            result.getIgnoreCount() + " ignored \n" +
+            result.getFailureCount() + " failed");
+
     }
     
 }

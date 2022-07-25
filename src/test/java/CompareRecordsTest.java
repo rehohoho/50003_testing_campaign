@@ -52,7 +52,9 @@ public class CompareRecordsTest {
         public static Collection<Object[]> generateInput() {
             return Arrays.asList(new Object[][] {
                 {new String[]{"./assets/sample_file_4.csv", "./assets/sample_file_5.csv", "./assets/systemsTestOut1.csv"}, "./assets/systemsTestOut1", "./assets/systemsTest1"},
-                {new String[]{"./assets/sample_file_1.csv", "./assets/sample_file_2.csv", "./assets/systemsTestOut2.csv"}, "./assets/systemsTestOut2", "./assets/systemsTest2"}
+                {new String[]{"./assets/sample_file_1.csv", "./assets/sample_file_2.csv", "./assets/systemsTestOut2.csv"}, "./assets/systemsTestOut2", "./assets/systemsTest2"},
+                {new String[]{"./assets/sample_file_1.csv", "./assets/sample_file_3.csv", "./assets/systemsTestOut3.csv"}, "./assets/systemsTestOut3", "./assets/systemsTest3"},
+                {new String[]{"./assets/sample_file_2.csv", "./assets/sample_file_3.csv", "./assets/systemsTestOut4.csv"}, "./assets/systemsTestOut4", "./assets/systemsTest4"}
             });
         }
         
@@ -70,7 +72,6 @@ public class CompareRecordsTest {
 
             compareFile(outPath + ".txt", expectedOutPath + ".txt");
             compareFile(outPath + ".csv", expectedOutPath + ".csv");
-            System.out.println(outPath + ".txt");
             File outTxt = new File(outPath + ".txt");
             File outCsv = new File(outPath + ".csv");
             outTxt.delete();
