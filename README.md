@@ -98,3 +98,8 @@ Serialiser Fields Test: `src/test/java/SerialiserFieldsTest.java`
 6. Balance validity
 
 For details of each point, see [section on equivalence class partitioning and boundary value analysis](#equivalence-class-partitioning-and-boundary-value-analysis)
+
+System tests: `src/test/java/CompareRecordsTest.java` \
+For each pair of input csvs, perform the following checks
+1. Csv output
+2. Exception logging to stdout
