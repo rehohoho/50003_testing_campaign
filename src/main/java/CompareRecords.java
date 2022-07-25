@@ -2,8 +2,8 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 
 public class CompareRecords {
 
@@ -18,16 +18,17 @@ public class CompareRecords {
         record2.getEntries().removeAll(record1.getEntries());
         res.addAll(record2.getEntries());
         
-        writeResult(res, args[2]);
+        Object[] resArr = res.toArray();
+        Arrays.sort(resArr);
+        writeResult(resArr, args[2]);
         System.out.println("Result csv outputted at " + args[2]);
     }
 
-    public static void writeResult(HashSet<String> res, String path) {
+    public static void writeResult(Object[] res, String path) {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(path));
-            Iterator<String> it = res.iterator(); // why capital "M"?
-            while(it.hasNext()) {
-                out.write(it.next());
+            for (Object it: res) {
+                out.write(it.toString());
                 out.newLine();
             }
             out.close();
