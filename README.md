@@ -7,38 +7,44 @@ Student ID: 1005000
 ## Usage
 The following compares two csv files and returns records that do not match.
 
-### Java only
-Compile:
+* <b>Compile</b>: Generates all class files to run on JVM
+* <b>Run</b>: Compare two csv files containing records, output set of records that do not match only if they are valid account records. Also prints out lines that denote invalid account records.
+* <b>Fuzz</b>: Generate `[file count]` instances of csv files of valid and invalid account records, each of `[line count]` number of entries. By default, the instances will be generates in ./fuzzTests
+* <b>Test</b>: Runs all tests. For system tests using inputs from ./fuzzTests, the outputs will be in ./fuzzTests.
+
+### Usage (Java only)
+
 ```
+## Compile
 javac -cp "./target/dependency/*" -d build src/main/java/*.java src/test/java/*.java
-```
 
-Run syntax: `java -cp build/ CompareRecords [csv-path-1] [csv-path-2] [output-path]`
-Compare two csv files containing records, output set of records that do not match only if they are valid account records.
-Also prints out lines that denote invalid account records.
-```
+## Run
+## Syntax: java -cp build/ CompareRecords [csv-path-1] [csv-path-2] [output-path]
 java -cp build/ CompareRecords ./assets/sample_file_1.csv ./assets/sample_file_3.csv res.csv
-```
 
-Generate fuzzing tests syntax: `java -cp build/ FuzzInputs random [line count] [file count]`
-Generate `[file count]` instances of csv files of valid and invalid account records, each of `[line count]` number of entries.
-By default, the instances will be generates in ./fuzzTests
-```
+## Fuzz
+## Syntax: java -cp build/ FuzzInputs random [line count] [file count]
 java -cp build/ FuzzInputs random 100 10
-```
 
-Run all tests:
-For system tests using inputs from ./fuzzTests, the outputs will be in ./fuzzTests.
-```
+## Test
 java -cp "target/dependency/*;build/" TestRunner
 ```
 
-### Maven
-First command is to compile, second is to run, third is to run tests.
+### Usage (Maven)
 ```
+## Compile
 mvn compile
+
+## Run
+## Syntax: mvn exec:java -Dexec.mainClass="CompareRecords" -Dexec.args="[csv-path-1] [csv-path-2] [output-path]"
 mvn exec:java -Dexec.mainClass="CompareRecords" -Dexec.args="./assets/sample_file_1.csv ./assets/sample_file_3.csv res.csv"
-mvn test -Dtest=RecordTest,SerialiserTest,SerialiserFieldsTest
+
+## Fuzz
+## Syntax: mvn exec:java -Dexec.mainClass="FuzzInputs" -Dexec.args="random [line count] [file count]"  
+mvn exec:java -Dexec.mainClass="FuzzInputs" -Dexec.args="random 100 10"
+
+## Test
+mvn test -Dtest=RecordTest,SerialiserTest,SerialiserFieldsTest,CompareRecordsTest,FuzzerTest
 ```
 
 To generate dependencies
@@ -81,7 +87,7 @@ mvn dependency:copy-dependencies
 |                                        | &nbsp;&nbsp;&nbsp; Fifth value in row is not a positive integer | &nbsp;&nbsp;&nbsp; Throws Value Exception due to incorrect typing of balance | &nbsp;&nbsp;&nbsp; (invalid) middle: -42; boundary: -1 or [] or ""
 
 ### Definitions
-* Equivalence Class: groups of input that behave similarly in the Program \
+* Equivalence Class: groups of input that behave similarly in the Program
 * Boundary Values: values at bounds of valid range OR edge cases
 
 ### Explanation / Rationale
