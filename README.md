@@ -8,11 +8,28 @@ Student ID: 1005000
 The following compares two csv files and returns records that do not match.
 
 ### Java only
-First command is to compile, second is to run, third is to run tests. \
-Run syntax: `java -cp build/ CompareRecords [csv-path-1] [csv-path-2] [output-path]`
+Compile:
 ```
 javac -cp "./target/dependency/*" -d build src/main/java/*.java src/test/java/*.java
+```
+
+Run syntax: `java -cp build/ CompareRecords [csv-path-1] [csv-path-2] [output-path]`
+Compare two csv files containing records, output set of records that do not match only if they are valid account records.
+Also prints out lines that denote invalid account records.
+```
 java -cp build/ CompareRecords ./assets/sample_file_1.csv ./assets/sample_file_3.csv res.csv
+```
+
+Generate fuzzing tests syntax: `java -cp build/ FuzzInputs random [line count] [file count]`
+Generate `[file count]` instances of csv files of valid and invalid account records, each of `[line count]` number of entries.
+By default, the instances will be generates in ./fuzzTests
+```
+java -cp build/ FuzzInputs random 100 10
+```
+
+Run all tests:
+For system tests using inputs from ./fuzzTests, the outputs will be in ./fuzzTests.
+```
 java -cp "target/dependency/*;build/" TestRunner
 ```
 
