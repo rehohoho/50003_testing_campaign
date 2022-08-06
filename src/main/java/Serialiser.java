@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 public class Serialiser {
 
     static final String DELIM = ",";
+    static final int expectedFieldCount = 5;
 
     static final HashSet<String> accountCurrency = Stream.of(
         "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "INR", "JPY", "MXN", "NOK", "NZD", 
@@ -71,7 +72,7 @@ public class Serialiser {
      */
     public static String getHash(String line) throws SerialiserException {
         String[] data = line.split(DELIM);
-        if (data.length != 5) {
+        if (data.length != expectedFieldCount) {
             throw new FieldCountException("Got " + data.length + " fields, expected 5");
         }
         checkCustomerId(data[0]);

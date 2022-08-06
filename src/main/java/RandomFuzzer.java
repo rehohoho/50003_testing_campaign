@@ -65,6 +65,15 @@ public class RandomFuzzer extends AbstractFuzzer {
     }
 
     public String generateInvalidEntry() {
-        return getRandomString(invalidMinLen, invalidMaxLen);
+        int validFieldCount = random.nextInt(2);
+        if (validFieldCount == 1) {
+            String entry = getRandomString(cellMinLen, cellMaxLen);
+            for (int i = 0; i < Serialiser.expectedFieldCount - 1; i++) {
+                entry += "," + getRandomString(cellMinLen, cellMaxLen);
+            }
+            return entry;
+        } else {
+            return getRandomString(invalidMinLen, invalidMaxLen);
+        }
     }
 }
