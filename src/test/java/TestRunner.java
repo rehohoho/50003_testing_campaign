@@ -21,7 +21,8 @@ public class TestRunner {
             result.getFailureCount() + " failed");
         
         result = JUnitCore.runClasses(
-            CompareRecordsTest.class
+            CompareRecordsTest.class,
+            FuzzerTest.class
         );
         
         for (Failure failure: result.getFailures()) {
