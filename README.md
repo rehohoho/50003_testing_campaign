@@ -126,3 +126,82 @@ System tests: `src/test/java/CompareRecordsTest.java` \
 For each pair of input csvs, perform the following checks
 1. Csv output
 2. Exception logging to stdout
+
+
+## Third Party Testing
+
+### bxverley
+See bxverley's implementation and rehohoho's written tests on: https://github.com/bxverley/Mini_testing_campaign/tree/rehohoho/Tests
+
+Tests added: system test, instructions to run is added in the README in the branch
+```
+javac -cp "./target/dependency/*" -d build Test\ files/*.java
+java -cp build/ compareCSV ./Test\ files/sample_file_1.csv ./Test\ files/sample_file_3.csv
+java -cp "target/dependency/*;build/" TestRunner
+```
+
+Bugs found:
+1. Does not flag out invalid csv lines, in `https://github.com/bxverley/Mini_testing_campaign/blob/rehohoho/Tests/fuzzTests/sample_file_4.csv`. In particular, the following lines should not be processed due to invalid fields.
+```
+a
+a,b,c,d
+a,b,c,d,e,f
+iD,BOS,SGD,CURRENT,0
+asdf,BOS,SGD,CURRENT,0
+42,BOS,SGD,CURRENT,0
+ ,BOS,SGD,CURRENT,0
+ID,asdf,SGD,CURRENT,0
+ID,BOs,SGD,CURRENT,0
+ID,42,SGD,CURRENT,0
+ID, ,SGD,CURRENT,0
+ID,BOS,asdf,CURRENT,0
+ID,BOS,sGD,CURRENT,0
+ID,BOS,42,CURRENT,0
+ID,BOS, ,CURRENT,0
+ID,BOS,SGD,asdf,0
+ID,BOS,SGD,cURRENT,0
+ID,BOS,SGD,cURRENT,-42
+ID,BOS,SGD,cURRENT,-1
+ID,BOS,SGD,CURRENT,0
+ID,BOS,SGD,CURRENT, 
+```
+
+2. Non-csv files that are named as "*.csv" are not flagged. See test case `https://github.com/bxverley/Mini_testing_campaign/blob/rehohoho/Tests/fuzzTests/testNoncsv.csv`
+3. Non-csv files are not flagged. See test case `https://github.com/bxverley/Mini_testing_campaign/blob/rehohoho/Tests/fuzzTests/testNoncsv.txt`
+
+### LHJJosh
+
+See LHJJosh's implementation and rehohoho's written tests on: https://github.com/LHJJosh/ESC_Mini_Campaign/tree/rehohoho/test
+
+Tests added: system test, instructions to run is added in the README in the branch
+```
+javac -cp "./target/dependency/*" -d build src/data_reconciliation/*.java #compile
+java -cp "target/dependency/*;build/" TestRunner #run test
+```
+
+Bugs found:
+1. Does not flag out invalid csv lines, in `https://github.com/bxverley/Mini_testing_campaign/blob/rehohoho/Tests/fuzzTests/sample_file_4.csv`. In particular, the following lines should not be processed due to invalid fields.
+```
+a
+a,b,c,d
+a,b,c,d,e,f
+iD,BOS,SGD,CURRENT,0
+asdf,BOS,SGD,CURRENT,0
+42,BOS,SGD,CURRENT,0
+ ,BOS,SGD,CURRENT,0
+ID,asdf,SGD,CURRENT,0
+ID,BOs,SGD,CURRENT,0
+ID,42,SGD,CURRENT,0
+ID, ,SGD,CURRENT,0
+ID,BOS,asdf,CURRENT,0
+ID,BOS,sGD,CURRENT,0
+ID,BOS,42,CURRENT,0
+ID,BOS, ,CURRENT,0
+ID,BOS,SGD,asdf,0
+ID,BOS,SGD,cURRENT,0
+ID,BOS,SGD,cURRENT,-42
+ID,BOS,SGD,cURRENT,-1
+ID,BOS,SGD,CURRENT,0
+ID,BOS,SGD,CURRENT, 
+```
+2. Non-csv files named as "*.csv" does not raise an exception. See test case `https://github.com/LHJJosh/ESC_Mini_Campaign/blob/rehohoho/test/src/input/fuzz_testNoncsv.csv`
