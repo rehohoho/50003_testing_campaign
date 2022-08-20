@@ -10,6 +10,7 @@ public class CompareRecords {
     public static void main(String[] args) 
         throws FileNotFoundException, IOException, Serialiser.SerialiserException
     {
+    	  
         Record record1 = new Record(args[0]);
         Record record2 = new Record(args[1]);
         Object[] res = compare(record1, record2);

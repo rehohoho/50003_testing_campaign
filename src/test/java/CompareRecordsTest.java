@@ -1,4 +1,5 @@
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedOutputStream;
@@ -6,12 +7,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -81,4 +84,11 @@ public class CompareRecordsTest {
         }
     }
 
+    @Test
+    public void testMain() throws IOException {
+
+        compareFile(".csv", ".csv");
+    }
+
+    
 }
