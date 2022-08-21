@@ -19,6 +19,7 @@ import org.junit.Test;
 
 public class testMain {
 
+	//Individual test
 	@Test
     public void testWork() throws IOException, Serialiser.SerialiserException {
 
@@ -99,7 +100,7 @@ public class testMain {
 
   //Testing random fuzzing
   	@Test
-  	public final void testCheckErrorsWithFuzzing() throws IOException {
+  	public final void testWithFuzzing() throws IOException {
   		
   		
   		try{
